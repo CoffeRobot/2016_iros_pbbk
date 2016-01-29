@@ -103,16 +103,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ABSTRACT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
 
-Humans are able to merge information from multiple perceptional modalities and formulate a 
-coherent representation of the world. Our thesis is that robots need to do the same in order to operate robustly and autonomously in an unstructured environment. 
-It has also been shown in several fields that multiple sources of information can complement each other,  overcoming the limitations of a single perceptual modality.
-Hence, in this paper we introduce a data set of actions that includes both 
-visual data (RGB-D video and 6DOF object pose estimation) and 
-acoustic data. We also propose a method for recognizing and segmenting actions from 
-continuous audio-visual data. The proposed method is employed for extensive evaluation
-of the descriptive power of the two modalities, and we discuss how they 
-can be used jointly to infer a coherent interpretation of the recorded action.
-
+Many different descriptors have been proposed in the literature
+Growing interest in binary descriptor due to performance requirements
+Benchmarks for homography but not clear more appropriate for tracking
+Best tradeoff between distinctiveness and speed. 
+we compare most of the feature descriptors and we provide an implementation of 
+akaze on the gpu.
 \end{abstract}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% INTRODUCTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -120,15 +116,18 @@ can be used jointly to infer a coherent interpretation of the recorded action.
 \section{INTRODUCTION}
 \label{sec:introduction}
 
+Local regions of interest or keypoint descriptors are widely used in Computer Vision for application such as object recognition and retrieval, 3D reconstruction and motion tracking. (Speak about sift here and its computational cost) A constant increase of the resolution of cameras and the growing number of portable camera enabled devices with weak computational capabilities steered the attention of the Computer Vision community on extremely fast key-point detectors and binary descriptors that can dramatically decrease the computational cost of detecting and matching feature descriptors. (BRISK ORB). This kind of descriptor started to be used used in real time tacking system. However the improved performance comes at the cost of a decreased precision. (Introduce akaze here)
 
-There has been tremendous effort in the robotics community to develop robots able to operate autonomously in unstructured environments. Robots should be able to perceive the world correctly, detect objects, observe and interact with humans, perform activities and understand if the desired outcome has been achieved \cite{montesano08}.
-
-Much effort has been spent on development of methods for visual perception and modeling of scenes. Many successful solutions have been proposed, considering various visual aspects such as object appearance, motion, human pose and affordances. %A challenge that these perception algorithms have in common is to integrate different kinds of information to formulate a consistent interpretation of the data. This approach strictly relates to the binding problem \cite{Treisman96} known in neuroscience. 
-Nevertheless, the use of visual features has some limitations. Firstly, an action has to be performed within the field of view of the observer in order to be perceived. Secondly, object detection and tracking are very sensitive to occlusions while performing activities. Finally, there are meaningful states induced by an action that are hard to detect just relying on visual perception, it is, e.g., very difficult to detect if a person has turned on an oven.
-
-One approach to tackle these limitation is to use additional sources of information, e.g., audio. While this field was in the past more focused on solving problems such as source localization and noise filtering, lately, the focus is more on exploiting sound to extract semantic knowledge and perform scene understanding \cite{Lyon10}. In many contexts, such information is very descriptive and can be helpful to understand a scene. Potentially it could compensate the limitations of visual perception (Fig.~\ref{fig:intro}). However, an important question arises: how can different modalities contribute to formulate a coherent interpretation of the world an agent is observing, in a manner similar to how humans process and integrate multiple modalities  \cite{Zmigrod13}?  Multimodality has up to now received relatively little focus in the robotics community, with some exceptions, e.g.,  \cite{TeoYDFA12}, and the task of audio-visual action recognition has not, to our knowledge, been addressed in robotics.
+Given this growing interest in fast descriptors, the relevant questions are which descriptor is the most suited for tracking by detection and whether the choice of the descriptor depends on other factors, e.g resolution of the video. (Question here, is the high precision really important for tracking, is it sufficient to have a weaker descriptor? Which one is the best?)
 
 
+The evaluation is performed in the context of tracking an object by detection its distinctive features. 
+
+The test data includes a set of videos that present different light conditions, partial and total occlusion. 
+
+The evaluation criterion are two-fold. First the feature descriptors are evaluated in terms of recall-precision, the number of correct and false matches within the ground truth bounding box. Second each feature descriptor is integrated in the same 2D tracker to estimate the bounding box of the object and the precision is computed in terms of low,medium and high requirements as explained in \cite{}.
+
+The main contributions of this work are an extensive evaluation of the different feature descriptors for tracking purposes. Furthermore we provide a GPU implementation of the recent and popular akaze descriptor.
 
 %\begin{figure}[t]
 %	\vspace{2mm}
@@ -142,10 +141,6 @@ One approach to tackle these limitation is to use additional sources of informat
 %\vspace{-3mm}
 %\label{fig:intro}
 %\end{figure}
-
-The main contribution of this paper is a {\em method for audio-visual recognition of human manipulation actions}. The visual features (Section \ref{sec:extractVideo}) are the relative 3D orientations and positions of objects involved in the activity, while the audio is represented in terms of MFCC features \cite{Hasan04} (Section \ref{sec:extractAudio}). Objects are tracked in 3D from an RGB-D video stream using the method in \cite{KarlTracker} (Section \ref{sec:tracker}). The audio and video cues are fused in an HMM framework (Section \ref{sec:model}). 
-
-An additional contribution of the paper is an {\em RGB-D-audio dataset of humans involved in the activity of making milk and cereals} (Section \ref{sec:dataset}).  This composite activity consists of many sub-actions such as opening and closing boxes and bottles, and pouring milk and cereal. The recognition method described above was evaluated on this dataset (Section \ref{sec:experiments}). The dataset is annotated with manually extracted segmentation points between sub-actions, and 3D positions and orientations of objects, obtained as described above. It also features 3D models of all objects involved. We release source code for administration of and access to the dataset.
 
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%% RELATED WORK %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
