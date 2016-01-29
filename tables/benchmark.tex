@@ -1,0 +1,79 @@
+\documentclass[10pt]{article}
+
+\usepackage{tikz}
+\usepackage{verbatim}
+\usepackage[active,tightpage]{preview}
+%\usepackage{pstricks-add}
+\usepackage{graphicx}
+\usetikzlibrary{arrows,%
+                petri,%
+                topaths,%
+								positioning,
+								calc,
+								shadows}%
+\usepackage{tkz-berge}
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{5pt}%
+\usetikzlibrary{matrix}
+
+
+\definecolor{kthColor}{RGB}{26,84,166}
+
+\begin{document}
+
+
+\tikzset{ 
+    table/.style={
+        matrix of nodes,
+        row sep=-\pgflinewidth,
+        column sep=-\pgflinewidth,
+        nodes={
+            rectangle,
+            draw=black,
+            align=center
+        },
+        minimum height=1.5em,
+        text depth=0.5ex,
+        text height=2ex,
+        nodes in empty cells,
+%%
+        every even row/.style={
+            nodes={fill=gray!20}
+        },
+        column 1/.style={
+            nodes={text width=5em,font=\small}
+        },
+        row 1/.style={
+            nodes={
+                fill=kthColor,
+                text=white,
+                font=\bfseries,
+            }
+        }
+    }
+}
+
+\begin{tikzpicture}
+
+
+\matrix (first) [table,text width=6em]
+{
+
+         &   brisk &   orb &   akaze &   surf &   sift &   akazec &   cuda \\
+low       &    0.99 &   0.96 &    0.97 &   0.83 &   0.95 &     0.99 &        0.95 \\
+ mid       &    0.53 &   0.4  &    0.89 &   0.65 &   0.51 &     0.77 &        0.64 \\
+ high      &    0.15 &   0.12 &    0.19 &   0.19 &   0.11 &     0.16 &        0.16 \\
+ model     &   69    & 158    &   33    &  59    &  18    &    33    &       40    \\
+ tp        &    9.61 &  16.86 &    8.7  &   5.72 &   3.11 &     7    &        7.35 \\
+ fp        &    0.25 &   0.91 &    1.17 &   0.83 &   0.32 &     0.37 &        0.09 \\
+ fn        &   35.14 &  49.56 &   16.18 &  82.56 &  25.08 &    15.67 &       48.6  \\
+ ambiguous &   59.14 & 140.23 &   23.13 &  52.45 &  14.56 &    25.63 &       32.56 \\
+ detect    &    5.41 &   3.04 &   15.71 &   3.67 &  25.55 &    33.83 &        0    \\
+ compute   &    1.68 &   2.93 &    9.29 &   3.01 &  15.9  &     1.1  &        2.22 \\
+ match     &    0.01 &   0.07 &    0    &   0.01 &   0.79 &     0.01 &        0.59 \\
+ track     &    8.16 &   7.79 &   25.76 &   7.71 &  44.52 &    36.11 &        4.48 \\
+};
+
+
+\end{tikzpicture}
+\end{document}
