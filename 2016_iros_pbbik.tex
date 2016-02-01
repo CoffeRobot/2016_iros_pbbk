@@ -19,15 +19,14 @@
 \usepackage{subfigure}                                                          
 \usepackage{textcomp} %<- allows to use \textdegree but may overwrite           
                       %other settings                                           
-\usepackage[textwidth=2cm,colorinlistoftodos,disable]{todonotes} %add disable   
+\usepackage[textwidth=2cm,colorinlistoftodos]{todonotes} %add disable   
                                 %to not show the todos                          
 \usepackage{tikz}                                                               
 \usetikzlibrary{arrows,positioning,fit,shapes,calc}
 \usetikzlibrary{matrix}
 \usepackage{flushend}                                                           
 \usepackage{hyperref}  
-\usepackage{amsmath}                                                         
-% \usepackage{multirow}   
+\usepackage{amsmath}    
 
 \usepackage{algorithm}    
 \usepackage{algorithmic}
@@ -88,7 +87,7 @@
 \title{\LARGE \bf Feature Descriptors for Tracking by Detection: a Benchmark}                                                                               
                                                                                 
                                                                                 
-\author{Alessandro Pieropan ~~~~ Mårten Bj{\"o}rkman  ~~~~ Niklas Bergstr{\"o}m ~~~~  Masatoshi Ishikawa ~~~~ Danica Kragic%
+\author{Alessandro Pieropan ~~~~ Mårten Bj{\"o}rkman  ~~~~ Niklas Bergstr{\"o}m ~~~~ Danica Kragic%
 \thanks{The GPU used for this research was donated by the NVIDIA Corporation.}
 \thanks{MB and DN are with CVAP/CAS, KTH, Stockholm, Sweden, {\tt celle,dani@kth.se}. AP, NB and MI are with the University of Tokyo, Japan, {\tt }.}}
 
@@ -102,13 +101,9 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ABSTRACT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
+In this paper, we provide an extensive evaluation of the performance of local descriptors for tracking applications.
+Many different descriptors have been proposed in the literature for a wide range of application in Computer Vision such as object recognition and 3D reconstruction. More recently, due to fast key-point detectors, feature descriptor can be used in online tracking frameworks. However, while much effort has been spent on evaluating their performance in terms of distinctiveness and robustness to image transformations, very little has been done in the contest of tracking. Our evaluation is performed in terms of distinctiveness, tracking precision and tracking speed. 
 
-Many different descriptors have been proposed in the literature
-Growing interest in binary descriptor due to performance requirements
-Benchmarks for homography but not clear more appropriate for tracking
-Best tradeoff between distinctiveness and speed. 
-we compare most of the feature descriptors and we provide an implementation of 
-akaze on the gpu.
 \end{abstract}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% INTRODUCTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -116,18 +111,24 @@ akaze on the gpu.
 \section{INTRODUCTION}
 \label{sec:introduction}
 
-Local regions of interest or keypoint descriptors are widely used in Computer Vision for application such as object recognition and retrieval, 3D reconstruction and motion tracking. (Speak about sift here and its computational cost) A constant increase of the resolution of cameras and the growing number of portable camera enabled devices with weak computational capabilities steered the attention of the Computer Vision community on extremely fast key-point detectors and binary descriptors that can dramatically decrease the computational cost of detecting and matching feature descriptors. (BRISK ORB). This kind of descriptor started to be used used in real time tacking system. However the improved performance comes at the cost of a decreased precision. (Introduce akaze here)
+Local regions of interest or key-point descriptors are widely used in Computer Vision for application such as object recognition and retrieval, 3D reconstruction and motion tracking. SIFT \cite{lowe04} is widely considered as one of the most robust feature descriptors, providing distinctiveness and invariance to common image transformations such as rotation and scale. However such a robustness comes with a computational cost. 
 
-Given this growing interest in fast descriptors, the relevant questions are which descriptor is the most suited for tracking by detection and whether the choice of the descriptor depends on other factors, e.g resolution of the video. (Question here, is the high precision really important for tracking, is it sufficient to have a weaker descriptor? Which one is the best?)
+Recently the is much concern about efficiency caused mainly by two important factors. First there is a stable growth of portable camera enabled devices with limited computing power. Second, computer vision databases are steadily increasing in size. As a consequence, there is a growing interest within the Computer Vision community on fast key-point detectors and binary descriptors that can dramatically decrease the computational cost of detecting and matching local regions of interest. BRIEF \cite{calonder10} feature descriptor in combination with FAST \cite{rosten06} key-point detector is among the first attempts in this direction making it suitable for real time applications. However, despite the improvement in performance, BRIEF descriptor is not very robust to image transformations. This underlines the difficulty in finding a good compromise between two competing characteristics: distinctiveness and fast computation. 
 
+More attempts has been done in this direction. BRISK \cite{leutenegger11} and ORB \cite{rublee11} propose some modification of the BRIEF and FAST in order to achieve scale and rotation invariance. The mentioned descriptors are faster that SIFT and have comparable matching precision with small image transformation. More recently the binary feature descriptor KAZE \cite{alcantarilla12} presented comparable results to SIFT on a standard dataset \cite{mikolajczyk05} designed to evaluate the robustness of local descriptors on several image transformations. 
 
-The evaluation is performed in the context of tracking an object by detection its distinctive features. 
+These extremely fast local descriptors not only improve the performance of vision tasks such as object retrieval and 3D reconstruction but they can be used in real-time tracking system. Yet, to the best of our knowledge, very little work has been done in evaluating key-points descriptor for the specific purpose of tracking. This work aims to target that issue by providing a fair and comprehensive evaluation of the most well known descriptors. We use the recall-precision measure to evaluate the matching distinctiveness of the features and we calculate the tracking precision by integrating each local descriptor in a key-point based tracker \cite{pieropan15}
 
-The test data includes a set of videos that present different light conditions, partial and total occlusion. 
+\todo[inline]{Alessandro: writing that what it is good for matching is not good for tracking to motivate the different benchmark. Answer different questions: Question here, is the high precision really important for tracking, is it sufficient to have a weaker descriptor? Which one is the best?}
 
-The evaluation criterion are two-fold. First the feature descriptors are evaluated in terms of recall-precision, the number of correct and false matches within the ground truth bounding box. Second each feature descriptor is integrated in the same 2D tracker to estimate the bounding box of the object and the precision is computed in terms of low,medium and high requirements as explained in \cite{}.
+The contribution of this work is four-fold:\\
+\textbf{Dataset.} We collected 47 sequences from different public available datasets and annotated the ground-truth in a standardized format to ease the evaluation.\\
+\textbf{Cuda Akaze.} Given the growing interest in the AKAZE feature descriptor and the lack of a GPU implementation, we provide our own using CUDA.\\
+\textbf{Evaluation Library.} We integrated the most well known descriptors in a state-of-the-art key-point based 2D tracker and we provide an interface to enable the integration of new feature descriptors.\\
+\textbf{Evaluation.}  There are three criteria the local descriptors are tested upon: distinctiveness, tracking precision and speed. First we measure the distinctiveness by matching the feature descriptors extracted in the first frame of the sequence and by computing the recall-precision. Then we calculate the low, medium and high tracking accuracy measures by integrating the descriptors in the 2D tracker. Last we profile the performance of each descriptor.
 
-The main contributions of this work are an extensive evaluation of the different feature descriptors for tracking purposes. Furthermore we provide a GPU implementation of the recent and popular akaze descriptor.
+The dataset and all the code will be publicly available.
+
 
 %\begin{figure}[t]
 %	\vspace{2mm}
@@ -144,7 +145,7 @@ The main contributions of this work are an extensive evaluation of the different
 
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%% RELATED WORK %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%\input{relatedWork}
+\input{related}
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%% DATASET AND EVALUATION DESCRIPTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\input{dataset}
