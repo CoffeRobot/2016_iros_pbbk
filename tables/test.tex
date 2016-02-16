@@ -1,0 +1,107 @@
+\documentclass[10pt]{article}
+
+\usepackage{tikz}
+\usepackage{verbatim}
+\usepackage[active,tightpage]{preview}
+%\usepackage{pstricks-add}
+\usepackage{graphicx}
+\usetikzlibrary{arrows,%
+                petri,%
+                topaths,%
+								positioning,
+								calc,
+								shadows}%
+\usepackage{tkz-berge}
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{5pt}%
+\usetikzlibrary{matrix}
+
+
+\definecolor{kthColor}{RGB}{26,84,166}
+
+\begin{document}
+
+
+\tikzset{
+    table/.style={
+        matrix of nodes,
+        row sep=-\pgflinewidth,
+        column sep=-\pgflinewidth,
+        nodes={
+            rectangle,
+            draw=black,
+            align=center
+        },
+        minimum height=1.5em,
+        text depth=0.5ex,
+        text height=2ex,
+        nodes in empty cells,
+%%
+        every even row/.style={
+            nodes={fill=gray!20}
+        },
+        column 1/.style={
+            nodes={text width=5em,font=\small}
+        },
+        row 1/.style={
+            nodes={
+                fill=kthColor,
+                text=white,
+                font=\bfseries,
+            }
+        }
+    }
+}
+
+\begin{tikzpicture}
+
+\matrix (first) [table,text width=6em]{
+
+{} &  akaze &  akazec &  brisk &  cuda\_sift &  orb &  sift &  surf \\
+ball                      &   0.26 &    0.21 &   0.14 &       0.18 & 0.11 &  0.17 &  0.10 \\
+basketball                &   0.02 &    0.01 &   0.00 &       0.01 & 0.00 &  0.01 &  0.01 \\
+bicycle                   &   0.02 &    0.02 &   0.01 &       0.03 & 0.01 &  0.01 &  0.02 \\
+board                     &   0.06 &    0.05 &   0.06 &       0.09 & 0.05 &  0.07 &  0.06 \\
+bolt                      &   0.01 &    0.00 &   0.00 &       0.00 & 0.00 &  0.00 &  0.00 \\
+box                       &   0.06 &    0.06 &   0.07 &       0.17 & 0.05 &  0.07 &  0.12 \\
+car                       &   0.21 &    0.06 &   0.05 &       0.14 & 0.04 &  0.03 &  0.04 \\
+car 2                     &   0.18 &    0.16 &   0.19 &       0.33 & 0.24 &  0.30 &  0.23 \\
+carchase                  &   0.05 &    0.03 &   0.04 &       0.08 & 0.03 &  0.05 &  0.05 \\
+cup on table              &   0.24 &    0.23 &   0.22 &       0.28 & 0.21 &  0.28 &  0.12 \\
+david                     &    nan &     nan &    nan &        nan &  nan &   nan &   nan \\
+diving                    &   0.06 &    0.05 &   0.03 &       0.05 & 0.03 &  0.03 &  0.02 \\
+dog                       &   0.13 &    0.16 &   0.13 &       0.37 & 0.12 &  0.34 &  0.12 \\
+drunk                     &   0.06 &    0.04 &   0.01 &       0.07 & 0.01 &  0.05 &  0.06 \\
+fernando                  &   0.02 &    0.02 &   0.01 &       0.02 & 0.01 &  0.03 &  0.02 \\
+fish1                     &   0.00 &    0.00 &   0.00 &       0.00 & 0.00 &  0.00 &  0.00 \\
+fish2                     &   0.01 &    0.01 &   0.00 &       0.00 & 0.00 &  0.01 &  0.00 \\
+gym                       &   0.11 &    0.09 &   0.03 &       0.03 & 0.03 &  0.05 &  0.03 \\
+gymnastics                &   0.28 &    0.26 &   0.18 &       0.22 & 0.20 &  0.20 &  0.14 \\
+hand1                     &   0.07 &    0.05 &   0.03 &       0.04 & 0.02 &  0.03 &  0.03 \\
+hand2                     &   0.03 &    0.03 &   0.02 &       0.02 & 0.02 &  0.02 &  0.02 \\
+jogging                   &   0.11 &    0.10 &   0.03 &       0.06 & 0.02 &  0.07 &  0.02 \\
+juice                     &   0.37 &    0.38 &   0.35 &       0.48 & 0.31 &  0.37 &  0.30 \\
+jumping                   &   0.05 &    0.03 &   0.04 &       0.06 & 0.04 &  0.04 &  0.02 \\
+lemming                   &   0.02 &    0.02 &   0.02 &       0.04 & 0.03 &  0.02 &  0.03 \\
+liquor                    &   0.27 &    0.26 &   0.19 &       0.35 & 0.20 &  0.20 &  0.22 \\
+motocross                 &   0.02 &    0.02 &   0.01 &       0.02 & 0.01 &  0.02 &  0.01 \\
+mountain-bike             &   0.03 &    0.02 &   0.01 &       0.02 & 0.01 &  0.02 &  0.01 \\
+person                    &   0.28 &    0.22 &   0.12 &       0.18 & 0.11 &  0.11 &  0.09 \\
+person crossing           &   0.18 &    0.18 &   0.07 &       0.13 & 0.05 &  0.15 &  0.06 \\
+person partially occluded &   0.57 &    0.56 &   0.44 &       0.58 & 0.37 &  0.39 &  0.29 \\
+polarbear                 &   0.11 &    0.12 &   0.06 &       0.21 & 0.02 &  0.03 &  0.08 \\
+singer                    &   0.06 &    0.06 &   0.04 &       0.06 & 0.03 &  0.05 &  0.04 \\
+skating                   &   0.03 &    0.02 &   0.01 &       0.04 & 0.01 &  0.02 &  0.02 \\
+sphere                    &   0.08 &    0.07 &   0.04 &       0.05 & 0.03 &  0.07 &  0.04 \\
+sunshade                  &   0.04 &    0.03 &   0.03 &       0.09 & 0.02 &  0.03 &  0.04 \\
+surfing                   &   0.21 &    0.13 &   0.09 &       0.24 & 0.06 &  0.10 &  0.06 \\
+sylvester                 &   0.11 &    0.08 &   0.05 &       0.10 & 0.04 &  0.08 &  0.06 \\
+torus                     &   0.04 &    0.04 &   0.02 &       0.02 & 0.02 &  0.02 &  0.02 \\
+track running             &   0.03 &    0.02 &   0.01 &       0.02 & 0.02 &  0.01 &  0.03 \\
+trellis                   &   0.04 &    0.03 &   0.02 &       0.02 & 0.02 &  0.02 &  0.01 \\
+tunnel                    &   0.01 &    0.01 &   0.01 &       0.02 & 0.01 &  0.01 &  0.01 \\
+woman                     &   0.02 &    0.02 &   0.01 &       0.02 & 0.01 &  0.01 &  0.01 \\
+};
+
+\end{tikzpicture}
+\end{document}
