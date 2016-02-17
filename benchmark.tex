@@ -6,32 +6,40 @@ The purpose of the experiments conducted are three-fold. First we want to measur
 
 \missingfigure[figwidth=0.98\linewidth]{Figure showing some example taken from the dataset}
 
-There are many publicly available datasets designed for tracking, however there is disagreement on how the data are stored. In order to facilitate the evaluation we collected the videos of different datasets and standardized how the data are stored. Each video is stored as a sequence of images while the ground truth, represented by an oriented bounding box, is saved in a comma separated value file where each row correspond to an image frame and contains 8 values representing the pairs x,y of each vertex of the box.  
+There are many publicly available datasets designed for tracking, however there is disagreement on how the data are stored. In order to facilitate the evaluation we collected the videos of different datasets and standardized how the data are stored. Each video is stored as a sequence of images while the ground truth, represented by an oriented bounding box, is saved in a comma separated value file where each row correspond to an image frame and contains 8 values representing the pairs x,y of each vertex of the box. The dataset will be released publicly, along with all the code to perform the experiments and compute the evaluation.
 
 \subsection{Matching Evaluation Criteria}
 
 \missingfigure[figwidth=0.98\linewidth]{Figure explaining how the matching ratios are calculated}
 
+Given as sequence of images $I_{1},...,I_{n}$ and the bounding box ground truth $gb_{1},...,gb_{n}$, we extract the set of target key-points descriptors $K_{1}$ from the first image of the sequence and we label all the key-points within $gb_{1}$ as descriptors of the object. For any subsequent image key-points $K_{t}$ are extracted and matched with $K_{1}$, generating a list of matches $M(i,j)_{k}$, where \textit{i} indicates a key-point descriptor of our target set $K_{1}$, and \textit{j} a descriptor of our test set. the test set is then labeled as follows:
+
+\begin{equation}
+K_{t}^{j} = 
+\begin{cases}
+\text{true positive}  \text{ if } K_{t}^{j} \in gb_{n} \land K_{1}^{i} \in gb_{1} \\
+\text{false positive}  \text{ if } K_{t}^{j} \notin gb_{n} \land K_{1}^{i} \in gb_{1} \\
+\text{false negative}  \text{ if } K_{t}^{j} \in gb_{n} \land K_{1}^{i} \notin gb_{1} \\
+\end{cases}
+\end{equation}
+
+where the pair \textit{i,j} is determined by the matching result $M(i,j)_{k}$. The average ratio of true positives underlines the ability of a tracker to find the object and potentially recover from track loss. False negatives are feature descriptors that appear in the current frame but have no corresponding match in the initial test set $K_{1}$. This may happen due to drastic change in appearance of the object. The ratio of false positives is very important to consider since it indicates the average number of outliers that will be used to estimate the pose of the object, resulting in a bad pose estimation without employing additional filtering techniques. One widely used filtering technique consists in discarding all matched key-points if the ratio between the score of the best match and the second best match is below a certain threshold $\rho$. We define a key-point as ambiguous, if this criteria is not met. The  number of ambiguous true and false positives is then calculated to evaluate the distinctiveness of the descriptors and evaluate the influence of this common filtering technique on the results.
+
 \subsection{Evaluating tracking precision}
 
-%\begin{algorithm}[h]
-% \KwData{$I_{1},...,I_{n},b_{1}$}
-% \KwResult{$b_{2},...,b_{n}$}
-% $K_{1} \gets$ extract\_points($I_{1},b_1$)\;
-% \For{$i \gets 2 : n$}{
-%   $K_{i}^{*} \gets$ track\_points($K_{i-1},I_{i-1},I_i$)\;
-%   $\alpha \gets$ median\_angle($K_i^*$)\;
-%   $s \gets$ median\_scale($K_i^*$)\;
-%   $V \gets$ vote($K_i^*,\alpha,s$)\;
-%   $V_{c} \gets$ dbscan($V$,$\epsilon$, $\lambda$)\;
-%   $C_i \gets$ mean($V_{c}$)\;
-%   $b_i \gets$ update($C_i$,$\alpha,s$)\;
-%   $K_{i}' \gets$ extract\_points($I_{i},b_i$)\;
-%   $M \gets$ match\_points($K_{1},K_{i}'$)\;
-%   $K_{i} \gets$ merge\_keypoints($K_i^* ,  M$)\;
-% }
-% \caption{\label{alg:algorithm}Overview of the tracking algorithm used to compute the precision. Each feature descriptor is used in the matching step. }
-%\end{algorithm}
+\begin{algorithm}[h]
+ \KwData{$I_{1},...,I_{n},b_{1}$}
+ \KwResult{$b_{2},...,b_{n}$}
+ $K_{1} \gets$ \textbf{extract\_points}($I_{1},b_1$)\;
+ \For{$i \gets 2 : n$}{
+   $K_{i}^{*} \gets$ track\_points($K_{i-1},I_{i-1},I_i$)\;
+   $b_i \gets$ estimate\_pose($K_{i}^{*}$)\;
+   $K_{i}' \gets$ \textbf{extract\_points}($I_{i},b_i$)\;
+   $M \gets$ \textbf{match\_points}($K_{1},K_{i}'$)\;
+   $K_{i} \gets$ merge\_keypoints($K_i^* ,  M$)\;
+ }
+ \caption{\label{alg:algorithm}Overview of the tracking algorithm used to compute the precision. The feature descriptors are employed in the steps in bold. }
+\end{algorithm}
 
 In order to measure the precision of the feature descriptors for tracking we employ a sparse key-point based tracker. The tracker requires a bounding box in the initial image of a sequence as initialization to extract feature descriptors that represent the \textit{model} of the object to track. The algorithm estimates the position of the object, represented as an oriented bounding box, with a combination of sparse optical flow and feature matching as shown in Alg.~\ref{}. The original algorithm used ORB. We upgraded our algorithm making it more modular and able to cope with any possible feature descriptor. To estimate the precision we used the widely accepted overlap measure:
 
@@ -59,7 +67,7 @@ The overall accuracy of the tracker for each precision requirement is calculated
 \text{recall } = \frac{TP}{\text{TP } + \text{ FN}}
 \end{equation}
 
-
+\missingfigure[figwidth=0.98\linewidth]{Figure showing the estimated bounding boxes and the ground truth to show the different behavior of trackers}
 
 \begin{figure*}[t]
 \centerline{% 
