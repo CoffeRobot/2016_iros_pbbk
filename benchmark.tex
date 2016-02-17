@@ -69,6 +69,46 @@ The overall accuracy of the tracker for each precision requirement is calculated
 
 \missingfigure[figwidth=0.98\linewidth]{Figure showing the estimated bounding boxes and the ground truth to show the different behavior of trackers}
 
+\subsection{Evaluating tracking precision}
+
+\begin{figure}
+	%\vspace{-2mm}
+	\includegraphics[width=0.95\linewidth]{imgs/performances.pdf}
+\vspace{-2.5mm}	
+\caption{Performance of the compute,detect and match steps of each feature descriptor.}
+\label{fig:ros}
+\end{figure}
+
+\subsection{Descriptor performances}
+
+\begin{figure*}
+\centerline{%
+	\subfigure{
+		\includegraphics[width=0.5\linewidth]{imgs/brisk_correlation.pdf}~
+		\includegraphics[width=0.5\linewidth]{imgs/orb_correlation.pdf}~
+		}}
+\vspace{-2.0mm}
+\centerline{%
+\subfigure{
+		\includegraphics[width=0.5\linewidth]{imgs/akazec_correlation.pdf}~
+		\includegraphics[width=0.5\linewidth]{imgs/sift_correlation.pdf}~
+		}}
+\vspace{-2.0mm}
+\addtocounter{subfigure}{-1}
+\centerline{%
+	\subfigure{	
+		\includegraphics[width=0.5\linewidth]{imgs/surf_correlation.pdf}~
+		\includegraphics[width=0.5\linewidth]{imgs/cuda_sift_correlation.pdf}~
+\label{fig:exp_d}		
+}}
+\vspace{-2.0mm}
+\caption{Correlations matrices between the different evaluated measures of the feature descriptors.}
+\vspace{-2mm}
+\label{fig:depth_comparison_second}
+\end{figure*}
+
+
+
 \begin{figure*}[t]
 \centerline{% 
 		\includegraphics[width=0.98\linewidth]{tables/test.pdf}}
@@ -76,4 +116,3 @@ The overall accuracy of the tracker for each precision requirement is calculated
 	\caption{Overall results of the dataset for true positive matching. This is just a preview it won't be in he paper.}
 	\label{fig:learnvsno}
 \end{figure*}
-
