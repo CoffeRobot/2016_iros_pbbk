@@ -1,3 +1,8 @@
+/imgs/distinctivenessTP.png
+/tables/texput.log
+/tables/tracking_precision.aux
+/tables/tracking_precision.log
+/tables/tracking_precision.synctex.gz
 /benchmark.log
 /tables/benchmark.bbl
 /tables/benchmark.blg
@@ -5,13 +10,11 @@
 /tables/test.bbl
 /tables/test.blg
 /tables/test.log
-/tables/test.pdf
 /tables/test.synctex.gz
 /tables/tp.aux
 /tables/tp.bbl
 /tables/tp.blg
 /tables/tp.log
-/tables/tp.pdf
 /tables/tp.synctex.gz
 /related.log
 /2016_iros_pbbik.bbl
@@ -23,5 +26,4 @@
 /2016_iros_pbbik.synctex.gz
 /tables/benchmark.aux
 /tables/benchmark.log
-/tables/benchmark.pdf
 /tables/benchmark.synctex.gz
