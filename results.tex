@@ -30,10 +30,26 @@ Fig.~\ref{fig:distinctiveness} shows the amount of true positives and ambiguous 
 \end{figure}
 
 
-\begin{figure*}[t]
+\subsection{Tracking accuracy}
+
+As explained in the previous section \ref{sec:accuracy}, we evaluated the performance of the feature descriptors running our tracker and calculating the overlap measure for low, medium and high accuracy requirements. It can be noticed in our results (table~\ref{table:taccuracy}) that AKAZE performs better overall, ORB BRISK and cuda SIFT have comparable results. Even if BRISK and ORB has been proven to be less descriptive, the higher amount of weak descriptors extracted seems to compensate the weaker descriptor. This is confirmed by the result of the high tracking requirements were more descriptive features such as AKAZE and cuda SIFT performs better than BRISK and ORB. It has to be noticed that an higher number of feature descriptors has an impact on the performance of the feature extraction and matching step since they are strictly correlated to the number of feature descriptors. 
+
+\subsection{Tracking performance}
+
+We evaluate the performance of each feature descriptor in three different steps: detection, computation and matching. Fig.~\ref{fig:speed} shows the overall results on the dataset. It is interesting to notice that despite AKAZE exploits multiple core on the CPU, its detection part is expensive due to the non-linear filtering. Brisk and ORB are faster but then the matching step is more expensive given the higher number of features extracted. Please note that this numbers are only informative. We think that it is not fair to compare multi-threaded implementations (e.g AKAZE) with single threaded (SIFT) or GPU implementation (SIFT).
+
+\begin{figure}
+	%\vspace{-2mm}
+	\includegraphics[width=0.95\linewidth]{imgs/performances.pdf}
+\vspace{-2.5mm}	
+\caption{Performance of the compute,detect and match steps of each feature descriptor.}
+\label{fig:speed}
+\end{figure}
+
+\begin{table*}[h]
 \centerline{% 
 		\includegraphics[width=0.98\linewidth]{tables/tracking_precision.pdf}}
     \vspace{-2mm} 
-	\caption{Initial tracking results low,medium and high accuracy on all the dataset. Running new experiments on akaze right now with better parameters.}
-	\label{fig:false_positives}
-\end{figure*}
+	\caption{Tracking results with low,medium and high accuracy requirements. Akaze performs better overall.}
+	\label{table:taccuracy}
+\end{table*}

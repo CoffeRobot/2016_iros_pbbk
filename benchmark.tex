@@ -26,6 +26,7 @@ K_{t}^{j} =
 where the pair \textit{i,j} is determined by the matching result $M(i,j)_{k}$. The average ratio of true positives underlines the ability of a tracker to find the object and potentially recover from track loss. False negatives are feature descriptors that appear in the current frame but have no corresponding match in the initial test set $K_{1}$. This may happen due to drastic change in appearance of the object. The ratio of false positives is very important to consider since it indicates the average number of outliers that will be used to estimate the pose of the object, resulting in a bad pose estimation without employing additional filtering techniques. One widely used filtering technique consists in discarding all matched key-points if the ratio between the score of the best match and the second best match is below a certain threshold $\rho$. We define a key-point as ambiguous, if this criteria is not met. The  number of ambiguous true and false positives is then calculated to evaluate the distinctiveness of the descriptors and evaluate the influence of this common filtering technique on the results.
 
 \subsection{Evaluating tracking precision}
+\label{sec:accuracy}
 
 \begin{algorithm}[h]
  \KwData{$I_{1},...,I_{n},b_{1}$}
@@ -41,7 +42,7 @@ where the pair \textit{i,j} is determined by the matching result $M(i,j)_{k}$. T
  \caption{\label{alg:algorithm}Overview of the tracking algorithm used to compute the precision. The feature descriptors are employed in the steps in bold. }
 \end{algorithm}
 
-In order to measure the precision of the feature descriptors for tracking we employ a sparse key-point based tracker. The tracker requires a bounding box in the initial image of a sequence as initialization to extract feature descriptors that represent the \textit{model} of the object to track. The algorithm estimates the position of the object, represented as an oriented bounding box, with a combination of sparse optical flow and feature matching as shown in Alg.~\ref{}. The original algorithm used ORB. We upgraded our algorithm making it more modular and able to cope with any possible feature descriptor. To estimate the precision we used the widely accepted overlap measure:
+In order to measure the precision of the feature descriptors for tracking we employ a sparse key-point based tracker. The tracker requires a bounding box in the initial image of a sequence as initialization to extract feature descriptors that represent the \textit{model} of the object to track. The algorithm estimates the position of the object, represented as an oriented bounding box, with a combination of sparse optical flow and feature matching as shown in Alg.~\ref{alg:algorithm}. The original algorithm used ORB. We upgraded our algorithm making it more modular and able to cope with any possible feature descriptor. To estimate the precision we used the widely accepted overlap measure:
 
 \begin{equation}
 	\Theta (b_{t}, b_{gt}) = \frac{b_{t} \cap b_{gt}}{b_{t} \cup b_{gt}}
@@ -69,50 +70,9 @@ The overall accuracy of the tracker for each precision requirement is calculated
 
 \missingfigure[figwidth=0.98\linewidth]{Figure showing the estimated bounding boxes and the ground truth to show the different behavior of trackers}
 
-\subsection{Evaluating tracking precision}
+\subsection{Parameter setting}
 
-\begin{figure}
-	%\vspace{-2mm}
-	\includegraphics[width=0.95\linewidth]{imgs/performances.pdf}
-\vspace{-2.5mm}	
-\caption{Performance of the compute,detect and match steps of each feature descriptor.}
-\label{fig:ros}
-\end{figure}
-
-\subsection{Descriptor performances}
-
-\begin{figure*}
-\centerline{%
-	\subfigure{
-		\includegraphics[width=0.5\linewidth]{imgs/brisk_correlation.pdf}~
-		\includegraphics[width=0.5\linewidth]{imgs/orb_correlation.pdf}~
-		}}
-\vspace{-2.0mm}
-\centerline{%
-\subfigure{
-		\includegraphics[width=0.5\linewidth]{imgs/akazec_correlation.pdf}~
-		\includegraphics[width=0.5\linewidth]{imgs/sift_correlation.pdf}~
-		}}
-\vspace{-2.0mm}
-\addtocounter{subfigure}{-1}
-\centerline{%
-	\subfigure{	
-		\includegraphics[width=0.5\linewidth]{imgs/surf_correlation.pdf}~
-		\includegraphics[width=0.5\linewidth]{imgs/cuda_sift_correlation.pdf}~
-\label{fig:exp_d}		
-}}
-\vspace{-2.0mm}
-\caption{Correlations matrices between the different evaluated measures of the feature descriptors.}
-\vspace{-2mm}
-\label{fig:depth_comparison_second}
-\end{figure*}
+All the descriptors require many parameters in order t be initialized properly. In order to evaluate the most fair comparison between them we decided to keep the values suggested by the original author of the descriptor or the implementation of it in the case of cuda SIFT.
 
 
 
-\begin{figure*}[t]
-\centerline{% 
-		\includegraphics[width=0.98\linewidth]{tables/test.pdf}}
-    \vspace{-2mm} 
-	\caption{Overall results of the dataset for true positive matching. This is just a preview it won't be in he paper.}
-	\label{fig:learnvsno}
-\end{figure*}

@@ -1,0 +1,67 @@
+\documentclass[10pt]{article}
+
+\usepackage{tikz}
+\usepackage{verbatim}
+\usepackage[active,tightpage]{preview}
+%\usepackage{pstricks-add}
+\usepackage{graphicx}
+\usetikzlibrary{arrows,%
+                petri,%
+                topaths,%
+								positioning,
+								calc,
+								shadows}%
+\usepackage{tkz-berge}
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{5pt}%
+\usetikzlibrary{matrix}
+
+
+\definecolor{kthColor}{RGB}{26,84,166}
+
+\begin{document}
+
+
+\tikzset{
+    table/.style={
+        matrix of nodes,
+        row sep=-\pgflinewidth,
+        column sep=-\pgflinewidth,
+        nodes={
+            rectangle,
+            draw=black,
+            align=center
+        },
+        minimum height=1.5em,
+        text depth=0.5ex,
+        text height=2ex,
+        nodes in empty cells,
+%%
+        every even row/.style={
+            nodes={fill=gray!20}
+        },
+        column 1/.style={
+            nodes={text width=5em,font=\small}
+        },
+        row 1/.style={
+            nodes={
+                fill=kthColor,
+                text=white,
+                font=\bfseries,
+            }
+        }
+    }
+}
+
+\begin{tikzpicture}
+
+\matrix (first) [table,text width=10em]{{} &  brisk &  orb &  akaze &  sift &  surf &  akazec &  cuda\_sift \\
+320x240&1351/121.00/31.50/85.00 & 1841/7.00/1.50/25.00 & 727/20.50/18.50/8.00 & 2017/72.50/119.00/101.00 & 443/9.50/13.00/5.00 & 727.50/405.50/8.00/6.00 & 770.00/0.00/1.93/1.22 \\
+640x480&4365/72.50/46.50/187.00 & 2500/8.50/3.50/19.00 & 3683/149.00/97.00/129.00 & 2500/133.50/127.00/119.00 & 1445/21.50/44.00/33.00 & 3678.00/826.00/35.50/130.00 & 2480.50/0.00/2.63/8.77 \\ 
+800x600&6721/116.00/73.50/432.00 & 2500/19.50/13.50/32.00 & 5878/270.00/163.50/320.00 & 2500/357.50/183.50/146.00 & 2128/45.00/66.00/73.00 & 5872.00/946.00/57.50/478.00 & 3777.00/0.00/3.43/12.75 \\ 
+1024x768&9469/301.50/225.50/1239.00 & 2500/34.50/27.50/64.00 & 9634/637.00/328.00/1254.00 & 2500/432.50/332.00/131.00 & 3273/79.00/114.50/231.00 & 9615.00/1549.50/86.00/918.00 & 5027.00/0.00/3.85/12.93 \\ 
+1280x960&13911/232.00/155.00/1744.00 & 2500/45.00/30.50/58.00 & 14760/1938.00/460.00/2008.00 & 2500/555.00/343.00/108.00 & 4879/124.00/190.00/547.00 & 14718.00/2313.00/114.00/2154.00 & 6277.00/0.00/4.92/12.91 \\ 
+1920x1080&24642/628.50/495.50/5521.00 & 2500/87.50/49.50/50.00 & 32136/6579.50/901.00/11269.00 & 2500/1946.00/914.00/147.00 & 9957/266.00/434.00/2261.00 & 32017.50/7553.50/251.50/18812.00 & 7527.00/0.00/9.32/13.25 \\ };
+
+\end{tikzpicture}
+\end{document}
