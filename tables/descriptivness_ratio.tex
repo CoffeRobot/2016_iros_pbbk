@@ -1,0 +1,64 @@
+\documentclass[10pt]{article}
+
+\usepackage{tikz}
+\usepackage{verbatim}
+\usepackage[active,tightpage]{preview}
+%\usepackage{pstricks-add}
+\usepackage{graphicx}
+\usetikzlibrary{arrows,%
+                petri,%
+                topaths,%
+								positioning,
+								calc,
+								shadows}%
+\usepackage{tkz-berge}
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{5pt}%
+\usetikzlibrary{matrix}
+
+
+\definecolor{kthColor}{RGB}{26,84,166}
+
+\begin{document}
+
+
+\tikzset{
+    table/.style={
+        matrix of nodes,
+        row sep=-\pgflinewidth,
+        column sep=-\pgflinewidth,
+        nodes={
+            rectangle,
+            draw=black,
+            align=center
+        },
+        minimum height=1.5em,
+        text depth=0.5ex,
+        text height=2ex,
+        nodes in empty cells,
+%%
+        every even row/.style={
+            nodes={fill=gray!20}
+        },
+        column 1/.style={
+            nodes={text width=5em,font=\small}
+        },
+        row 1/.style={
+            nodes={
+                fill=kthColor,
+                text=white,
+                font=\bfseries,
+            }
+        }
+    }
+}
+
+\begin{tikzpicture}
+
+\matrix (first) [table,text width=6em]{feature &     akaze &  brisk &  cuda\_sift &       orb &      sift &      surf \\
+tp & 0.89 & 0.58 & 1.0 & 0.53 & 0.73 & 0.53 \\
+descriptors & 0.50 & 0.82 & 0.41 & 1.00 & 0.33 & 0.98 \\
+};
+
+\end{tikzpicture}
+\end{document}

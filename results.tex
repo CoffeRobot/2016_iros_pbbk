@@ -10,7 +10,16 @@
 	\label{fig:distinctiveness}
 \end{figure*}
 
-Fig.~\ref{fig:distinctiveness} shows the amount of true positives and ambiguous true positives for a subset of the videos present in the dataset. the lighter color bars show the number of descriptors that will pass the second best ratio filter. It is interesting to notice that while BRISK and ORB have a higher number of true positives, SIFT and AKAZE present a higher ratio of descriptors that will pass the second best filter. This is an indication that those descriptors are more distinctive. Upon inspection, th number of false positives is comparable as shown in Fig.~\ref{fig:false_positives}.
+Fig.~\ref{fig:distinctiveness} shows the amount of true positives and ambiguous true positives for a subset of the videos present in the dataset. the lighter color bars show the number of descriptors that will pass the second best ratio filter. In Tab.~\ref{table:tp_ratio} shows the average ratios of effective true positives and total number of descriptors extracted on all the dataset. By effective true positive we intend all the positives matches that pass the second best match filter. Looking at the statistics it is interesting to notice that BRISK and ORB extract a higher number of feature descriptors in general and Fig.~\ref{fig:distinctiveness} shows that they have also a higher number of true positives, however if we calculate the number of true positives that pass the second best match check, then cuda SIFT and AKAZE have a better ratio of effective true positives. This is an indication that those descriptors are more distinctive. Upon inspection, the number of false positives is comparable as shown in Fig.~\ref{fig:false_positives}.
+
+\begin{table}[h]
+\centerline{% 
+		\includegraphics[width=0.98\linewidth]{tables/descriptivness_ratio.pdf}}
+    \vspace{-2mm} 
+	\caption{Average number of effective true positives and total feature extracted.}
+	\label{table:tp_ratio}
+\end{table}
+
 
 \begin{figure}[t]
 \centerline{% 
