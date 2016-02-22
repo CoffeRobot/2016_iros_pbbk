@@ -146,9 +146,9 @@ The contribution of this work is four-fold:\\
 \textbf{Dataset.} We collected 47 sequences from different public available datasets and annotated the ground-truth in a standardized format to ease the evaluation.\\
 \textbf{Cuda Akaze.} Given the growing interest in the AKAZE feature descriptor and the lack of a GPU implementation, we provide our own using CUDA.\\
 \textbf{Evaluation Library.} We integrated the most well known descriptors in a state-of-the-art key-point based 2D tracker and we provide an interface to enable the integration of new feature descriptors.\\
-\textbf{Evaluation.}  There are three criteria the local descriptors are tested upon: distinctiveness, tracking precision and speed. First we measure the distinctiveness by matching the feature descriptors extracted in the first frame of the sequence and by computing the recall-precision. Then we calculate the low, medium and high tracking accuracy measures by integrating the descriptors in the 2D tracker. Last we profile the performance of each descriptor.
+\textbf{Evaluation.}  There are three criteria the local descriptors are tested upon: distinctiveness, tracking precision and speed. First we measure the distinctiveness by matching the feature descriptors extracted in the first frame of the sequence and by computing the recall-precision. Then we calculate the tracking by integrating each feature descriptor in a key-point based tracker and we calculate the well known overlap accuracy for low, medium and high precision requirements. Last we profile the performance of each descriptor.
 
-The dataset and all the code will be publicly available.
+The dataset, our AKAZE implementation and all the code to perform the benchmark will be publicly available.
 
 
 
