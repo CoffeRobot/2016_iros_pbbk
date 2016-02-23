@@ -6,7 +6,7 @@
 \centerline{% 
 		\includegraphics[width=0.98\linewidth]{imgs/distinctivenessTP.pdf}}
     \vspace{-2mm} 
-	\caption{Examples take from the dataset showing the ratio of true positives and ambiguous true positives. The lighter color bars show the number of true positives that will actually pass the second best result test.}
+	\caption{Examples taken from the dataset showing the ratio of true positives and ambiguous true positives. The lighter color bars show the number of true positives that will actually pass the second best result test.}
 	\label{fig:distinctiveness}
 \end{figure*}
 
@@ -19,16 +19,6 @@ Fig.~\ref{fig:distinctiveness} shows the amount of true positives and ambiguous 
 	\caption{Average number of effective true positives and total feature extracted.}
 	\label{table:tp_ratio}
 \end{table}
-
-
-\begin{figure}[t]
-\centerline{% 
-		\includegraphics[width=0.98\linewidth]{imgs/false_positives.pdf}}
-    \vspace{-2mm} 
-	\caption{Examples take from the dataset showing the ratio of true positives and ambiguous true positives. The lighter color bars show the number of true positives that will actually pass the second best result test.}
-	\label{fig:false_positives}
-\end{figure}
-
 
 \subsection{Tracking accuracy}
 
@@ -45,6 +35,24 @@ We evaluate the performance of each feature descriptor in three different steps:
 \caption{Performance of the compute,detect and match steps of each feature descriptor.}
 \label{fig:speed}
 \end{figure}
+
+\begin{table}
+\caption{Average time spent on a single frame by the tracker.}
+	%\vspace{-2mm}
+	\includegraphics[width=0.95\linewidth]{tables/resolution_times.pdf}
+\vspace{-2.5mm}	
+\label{fig:fps}
+\end{table}
+
+\begin{figure}
+	%\vspace{-2mm}
+	\includegraphics[width=0.95\linewidth]{imgs/tracker_fps.pdf}
+\vspace{-2.5mm}	
+\caption{Performance of the compute,detect and match steps of each feature descriptor.}
+\label{fig:speed}
+\end{figure}
+
+
 
 \begin{table*}[h]
 \centerline{% 
