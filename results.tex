@@ -22,6 +22,31 @@ Fig.~\ref{fig:distinctiveness} shows the amount of true positives and ambiguous 
 
 \subsection{Tracking accuracy}
 
+\begin{figure}[t]
+	\vspace{2mm}
+\centerline{%
+	\subfigure{\includegraphics[width=0.48\linewidth]{imgs/results/ex1.png}}
+	\subfigure{\includegraphics[width=0.48\linewidth]{imgs/results/ex2.png}}}
+	\vspace{-2mm}
+\centerline{%
+	\subfigure{\includegraphics[width=0.48\linewidth]{imgs/results/ex5.png}}
+	\subfigure{\includegraphics[width=0.48\linewidth]{imgs/results/ex6.png}}}
+\caption{Examples showing the behaviour of the feature descriptors upon occlusion. Upon recovery from track loss more descriptive descriptors allow the tracker to recover faster.}
+\vspace{-3mm}
+\label{fig:tracking_results}
+\end{figure}
+
+\begin{figure}[t]
+	\vspace{2mm}
+\centerline{%
+	\subfigure{\includegraphics[width=0.48\linewidth]{imgs/results/ex3.png}}
+	\subfigure{\includegraphics[width=0.48\linewidth]{imgs/results/ex4.png}}}
+	\vspace{-2mm}
+\caption{Despite most of the descriptors are scale invariant this example shows their weakness in working with drastic scale change.}
+\vspace{-3mm}
+\label{fig:tracking_results_scale}
+\end{figure}
+
 As explained in the previous section \ref{sec:accuracy}, we evaluated the performance of the feature descriptors running our tracker and calculating the overlap measure for low, medium and high accuracy requirements. It can be noticed in our results (table~\ref{table:taccuracy}) that AKAZE performs better overall, ORB BRISK and cuda SIFT have comparable results. Even if BRISK and ORB has been proven to be less descriptive, the higher amount of weak descriptors extracted seems to compensate the weaker descriptor. This is confirmed by the result of the high tracking requirements were more descriptive features such as AKAZE and cuda SIFT performs better than BRISK and ORB. It has to be noticed that an higher number of feature descriptors has an impact on the performance of the feature extraction and matching step since they are strictly correlated to the number of feature descriptors. 
 
 \subsection{Tracking performance}
