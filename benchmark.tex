@@ -4,11 +4,32 @@ The purpose of the experiments conducted are three-fold. First we want to measur
 
 \subsection{Dataset}
 
+\begin{figure*}[t]
+	\vspace{2mm}
+\centerline{%
+	\subfigure{\includegraphics[width=0.19\linewidth]{imgs/dataset/d1.png}}
+	\subfigure{\includegraphics[width=0.19\linewidth]{imgs/dataset/d2.png}}
+	\subfigure{\includegraphics[width=0.19\linewidth]{imgs/dataset/d3.png}}
+	\subfigure{\includegraphics[width=0.19\linewidth]{imgs/dataset/d4.png}}
+	\subfigure{\includegraphics[width=0.19\linewidth]{imgs/dataset/d5.png}}}
+	\vspace{-2mm}
+\centerline{%
+	\subfigure{\includegraphics[width=0.19\linewidth]{imgs/dataset/d6.png}}
+	\subfigure{\includegraphics[width=0.19\linewidth]{imgs/dataset/d7.png}}
+	\subfigure{\includegraphics[width=0.19\linewidth]{imgs/dataset/d8.png}}
+	\subfigure{\includegraphics[width=0.19\linewidth]{imgs/dataset/d9.png}}
+	\subfigure{\includegraphics[width=0.19\linewidth]{imgs/dataset/d10.png}}}
+\caption{Examples showing the behaviour of the feature descriptors upon occlusion. Upon recovery from track loss more descriptive descriptors allow the tracker to recover faster.}
+\vspace{-3mm}
+\label{fig:tracking_results}
+\end{figure*}
+
+
 There are many publicly available datasets designed for tracking, however there is disagreement on how the data are stored. In order to facilitate the evaluation we collected the videos of different datasets and standardized how the data are stored. Each video is stored as a sequence of images while the ground truth, represented by an oriented bounding box, is saved in a comma separated value file where each row correspond to an image frame and contains 8 values representing the pairs x,y of each vertex of the box. The dataset will be released publicly, along with all the code to perform the experiments and compute the evaluation.
 
 \subsection{Matching Evaluation Criteria}
 
-\begin{figure}
+\begin{figure}[b]
 	%\vspace{-2mm}
 	\includegraphics[width=0.95\linewidth]{imgs/matching.png}
 \vspace{-2.5mm}	
