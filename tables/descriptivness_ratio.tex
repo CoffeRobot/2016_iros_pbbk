@@ -30,7 +30,8 @@
         nodes={
             rectangle,
             draw=black,
-            align=center
+            align=center,
+            text width=4em
         },
         minimum height=1.5em,
         text depth=0.5ex,
@@ -41,7 +42,7 @@
             nodes={fill=gray!20}
         },
         column 1/.style={
-            nodes={text width=5em,font=\small}
+            nodes={text width=3em,font=\small}
         },
         row 1/.style={
             nodes={
@@ -55,9 +56,12 @@
 
 \begin{tikzpicture}
 
-\matrix (first) [table,text width=6em]{feature &     akaze &  brisk &  cuda\_sift &       orb &      sift &      surf \\
-tp & 0.89 & 0.58 & 1.0 & 0.53 & 0.73 & 0.53 \\
-descriptors & 0.50 & 0.82 & 0.41 & 1.00 & 0.33 & 0.98 \\
+\matrix (first) [table,text width=6em]{ &akaze&brisk&akaze c&sift c&orb&sift&surf\\
+points&0.91&0.82&0.53&0.42&1.0&0.99&0.34\\
+object&0.66&0.67&0.51&0.32&1.0&0.63&0.23\\
+tp&0.84&0.88&0.95&1.0&0.92&0.72&0.76\\
+fp&0.94&0.92&0.89&0.86&0.9&1.0&0.98\\
+ttp&0.72&0.59&0.71&1.0&0.53&0.55&0.71\\
 };
 
 \end{tikzpicture}

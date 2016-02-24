@@ -1,1 +1,6 @@
 \section{Conclusion}
+
+We proposed an evaluation of the most common feature descriptors for the purpose of tracking by detection. Our experiments have shown that most of the feature descriptors have comparable results. While AKAZE and SIFT have proven to be more distinctive, ORB and BRISK compensate their weak descriptors with a higher number of points extracted. This has proven to influence positively the precision of the tracker especially when the object suffers drastic scale changes. However this comes with a cost in terms of speed especially when performing feature matching. 
+
+
+The filtering technique to discard ambiguous matches has proven to be crucial to discard most of the false positives but still keep a sufficient number of true positives to keep tracking the object. As expected, the implementation of SIFT and SURF in OpenCV has been proven to be not adequate
