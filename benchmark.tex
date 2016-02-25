@@ -19,13 +19,13 @@ The purpose of the experiments conducted are three-fold. First we want to measur
 	\subfigure{\includegraphics[width=0.19\linewidth]{imgs/dataset/d8.png}}
 	\subfigure{\includegraphics[width=0.19\linewidth]{imgs/dataset/d9.png}}
 	\subfigure{\includegraphics[width=0.19\linewidth]{imgs/dataset/d10.png}}}
-\caption{The sequences of the dataset includes both indoor and outdoor scenarios with different light conditions.}
+\caption{Examples showing the behaviour of the feature descriptors upon occlusion. Upon recovery from track loss more descriptive descriptors allow the tracker to recover faster.}
 \vspace{-3mm}
-\label{fig:data_example}
+\label{fig:tracking_results}
 \end{figure*}
 
 
-There are many publicly available datasets designed for tracking, however there is disagreement on how the data are stored. In order to facilitate the evaluation we collected the videos of different datasets and standardized how the data are stored. Fig.~\ref{fig:data_example} shows some examples. Each video is stored as a sequence of images while the ground truth, represented by an oriented bounding box, is saved in a comma separated value file where each row correspond to an image frame and contains 8 values representing the pairs x,y of each vertex of the box. The dataset will be available publicly, along with all the code to perform the experiments and compute the evaluation.
+There are many publicly available datasets designed for tracking, however there is disagreement on how the data are stored. In order to facilitate the evaluation we collected the videos of different datasets and standardized how the data are stored. Each video is stored as a sequence of images while the ground truth, represented by an oriented bounding box, is saved in a comma separated value file where each row correspond to an image frame and contains 8 values representing the pairs x,y of each vertex of the box. The dataset will be released publicly, along with all the code to perform the experiments and compute the evaluation.
 
 \subsection{Matching Evaluation Criteria}
 
@@ -37,7 +37,7 @@ There are many publicly available datasets designed for tracking, however there 
 \label{fig:matching}
 \end{figure}
 
-Given as sequence of images $I_{1},...,I_{n}$ and the bounding box ground truth $gb_{1},...,gb_{n}$, we extract the set of target key-points descriptors $K_{1}$ from the first image of the sequence and we label all the key-points within $gb_{1}$ as descriptors of the object. For any subsequent image key-points $K_{t}$ are extracted and matched with $K_{1}$, generating a list of matches $M(i,j)_{k}$, where \textit{i} indicates a key-point descriptor of our target set $K_{1}$, and \textit{j} a descriptor of our test set. the test set is then labeled as follows:
+Given as sequence of images $I_{1},...,I_{n}$ and the bounding box ground truth $gb_{1},...,gb_{n}$, we extract the set of target key-points descriptors $K_{1}$ from the first image of the sequence and we label all the key-points within $gb_{1}$ as descriptors of the object. For any subsequent image key-points $K_{t}$ are extracted and matched with $K_{1}$, generating a list of matches $M_k = \left\lbrace (i,j); i \in K_k, j \in K_1 \right\rbrace$, where \textit{i} indicates a key-point descriptor of our target set $K_{1}$, and \textit{j} a descriptor of our test set. the test set is then labeled as follows:
 
 \begin{equation}
 K_{t}^{j} = 
