@@ -12,8 +12,9 @@
 
 Tab.~\ref{table:tp_ratio} shows the average number of key-points extracted, descriptors belonging to the object to track and the ratio of true positives (TP), false positives (FP) and true positives that pass the second best match ratio check (TTP). It is interesting to notice that BRISK, ORB and SIFT extract a higher number of feature descriptors in general. In particular BRISK and ORB have a higher number of key-points extracted within the area of the object. However, looking at the average amount of true positives it can be seen that the best performing descriptors are AKAZE and the implementation of SIFT on the GPU. This is a first indicator of the quality of the descriptors extracted. Moreover, it can be noticed that the true positives are also more distinctive in the case of AKAZE and SIFT since the number of TTP is higher.
 
-\begin{table}[t]
-\caption{Average number of true positives, and total feature extracted.}
+\begin{table}[h]
+\caption{Average number of feature extracted, object features, true positives and false positives. Every row is normalized by the maximum value.}
+\vspace{-2mm} 
 \centerline{% 
 		\includegraphics[width=0.98\linewidth]{tables/descriptivness_ratio.pdf}}
     \vspace{-2mm} 
@@ -23,17 +24,6 @@ Tab.~\ref{table:tp_ratio} shows the average number of key-points extracted, desc
 \subsection{Tracking accuracy}
 
 As explained in the previous section \ref{sec:accuracy}, we evaluated the performance of the feature descriptors running our tracker and calculating the overlap measure for low, medium and high accuracy requirements. It can be noticed in our results (table~\ref{table:taccuracy}) that AKAZE, BRISK, ORB and SIFT have comparable results. Even if BRISK and ORB has been proven to be less descriptive, the higher amount of weak descriptors extracted seems to compensate this weakness. Upon inspection we noticed that a higher number of features makes the difference when the object to track undergoes drastic changes in scale. In particular we noticed that AKAZE, more than SIFT, suffers the change in scale (e.g. Fig.~\ref{fig:tracking_results_scale}). 
-
-\begin{figure}[t]
-	\vspace{2mm}
-\centerline{%
-	\subfigure{\includegraphics[width=0.48\linewidth]{imgs/results/ex3.png}}
-	\subfigure{\includegraphics[width=0.48\linewidth]{imgs/results/ex4.png}}}
-	\vspace{-2mm}
-\caption{Despite most of the descriptors are scale invariant this example shows their weakness in working with drastic scale change.}
-\vspace{-3mm}
-\label{fig:tracking_results_scale}
-\end{figure} 
 
 \subsection{Tracking performance}
 
@@ -82,6 +72,16 @@ We evaluate the performance of each feature descriptor in three different steps:
 \subsection{Consideration}
 
 
+\begin{figure}[t]
+	\vspace{2mm}
+\centerline{%
+	\subfigure{\includegraphics[width=0.48\linewidth]{imgs/results/ex3.png}}
+	\subfigure{\includegraphics[width=0.48\linewidth]{imgs/results/ex4.png}}}
+	\vspace{-2mm}
+\caption{Despite most of the descriptors are scale invariant this example shows their weakness in working with drastic scale change.}
+\vspace{-3mm}
+\label{fig:tracking_results_scale}
+\end{figure} 
 
 \begin{table*}[h]
 \caption{Tracking results with low,medium and high accuracy requirements. The high number of key points extracted by ORB or BRISK compensate their weak descriptors. This comes with a cost in performance.} 
