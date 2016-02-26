@@ -1,4 +1,4 @@
-\section{Benchmark design}
+\section{Benchmark}
 
 The goal of the conducted benchmarking presented in detail in the experimental evaluation is three-fold. First, we want to measure the descriptiveness of the feature descriptors for matching purposes. This is crucial for the recovery of a tracker upon loss of tracking due to occlusion, changed lighting conditions, and alike. Second, we measure the tracking accuracy by integrating each feature descriptor in our 2D tracker and compute the overlap measure using the estimated object position. Third, we profile each separate step required in tracking by detection (key-point detection, descriptor computation and feature matching) in order to evaluate the performance of the feature descriptors for real-time applications.
 
@@ -76,6 +76,7 @@ various feature descriptors that we evaluate. To estimate the tracking precision
 \begin{equation}
 	\Theta (b_{t}, b_{gt}) = \frac{b_{t} \cap b_{gt}}{b_{t} \cup b_{gt}}
 \end{equation}
+
 where \textit{$b_{t}$} is the bounding box estimated by our tracker and
 \textit{$b_{gt}$} is the bounding box provided by the ground truth. We define 
 three precision requirements $\Upsilon$ (0.25, 0.5, 0.75) that indicate low, medium and high tracking accuracy. This is a more indicative evaluation compared to the overall accuracy. For instance, an overall value of 0.5 is ambiguous because it may indicate either a stable average accuracy around the value or a very precise evaluation in part of the video while poor in the rest.
