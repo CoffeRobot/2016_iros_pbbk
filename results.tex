@@ -87,6 +87,14 @@ Most of the feature descriptors proved to be effective for tracking purposes sho
 However, the trade-off between the distinctiveness and accuracy is not easy to define.
 AKAZE and SIFT have been proven to be more distinctive as descriptors but only their implementations of the GPU allow real time performances. 
 
+\todo[inline]{this needs to be rewritten}
+
+Most of the video sequence present many challenges: scale or affine transformations, appearance changes and blurring as a consequence of fast camera or object movements. AKAZE and SIFT have proven to be more effective on the sequences with small scale changes and low movements between frames. AKAZE in particular seems to be sensitive to scale changes. Moreover, we noticed that the matching rate of all features drop consistently upon fast movements of the camera. The motion blur influences negatively the quality of the feature extracted. However, tt seems that weaker descriptors are able to cope better with such problems presenting a higher number of feature descriptors that may find a potential match in the current image. It will be interesting to evaluate the performance of the feature descriptors generating affine descriptors using artificial transformations of the object as propose by Morel \cite{morel2009}.
+
+Despite the computation of a non linear scale space is more demanding that Gaussian filtering, we noticed that the extraction and matching steps of AKAZE compensates in terms of performance due to the binary descriptor.
+
+\todo[inline]{end part to review}
+
 \begin{figure}[!htb]
 	\vspace{2mm}
 \centerline{%
@@ -99,7 +107,7 @@ AKAZE and SIFT have been proven to be more distinctive as descriptors but only t
 \end{figure} 
 
 
-There are still some issue that needsto be addressed in relation to achieving a robust tracking system. First, even if many descriptors are invariant to scale, we noticed that this does
+There are still some issue that need to be addressed in relation to achieving a robust tracking system. First, even if many descriptors are invariant to scale, we noticed that this does
 not hold for drastic scale changes like in Fig.~\ref{fig:tra}. Second, feature descriptors are sensitive to light conditions, see Fig.~\ref{fig:trb}. This is particularly relevant for robotics applications since the interaction of a robotic platform with a target object may occlude the light source. Third, the common matching approach to detect an object or compute the transformation between images \cite{mikolajczyk05} does not work in the presence of multiple targets with similar appearance. This is the case shown in Fig.\ref{fig:trc} where more players have the same outfit.
 
 
