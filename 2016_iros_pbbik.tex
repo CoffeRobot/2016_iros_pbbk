@@ -91,8 +91,9 @@
                                                                                 
                                                                                 
 \author{Alessandro Pieropan ~~~~ Mårten Bj{\"o}rkman  ~~~~ Niklas Bergstr{\"o}m ~~~~ Danica Kragic%
+\thanks{This research has been supported by he Japan Society for the Promotion of Science (JSPS)}
 \thanks{The GPU used for this research was donated by the NVIDIA Corporation.}
-\thanks{MB and DN are with CVAP/CAS, KTH, Stockholm, Sweden, {\tt celle,dani@kth.se}. AP, NB and MI are with the University of Tokyo, Japan, {\tt }.}}
+\thanks{MB and DN are with CVAP/CAS, KTH, Stockholm, Sweden, {\tt celle,dani@kth.se}. AP and NB are with the University of Tokyo, Japan, {\tt alessandro\_pieropan}, {\tt niklas\_bergstrom@ipc.i.u$-$tokyo.ac.jp}.}}
 
 \begin{document}                                                                
                                                                                 
@@ -104,9 +105,8 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ABSTRACT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
-The paper provides an extensive evaluation of the performance of local descriptors for tracking applications.
-A multitude of different descriptors has been proposed in the literature for a wide range of specific applications in Computer Vision such as object recognition and 3D reconstruction. Several works have demonstrated
-recently that it is now feasible to employ more complex feature descriptors for online tracking due to fast key-point detectors. While much effort has been spent on evaluating their performance in terms of distinctiveness and robustness to image transformations, very little has been done in the contest of tracking. Our evaluation is performed in terms of distinctiveness, tracking precision and tracking speed. The results show that binary descriptors like ORB or BRISK have comparable results to SIFT or AKAZE. 
+In this paper, we provide an extensive evaluation of the performance of local descriptors for tracking applications.
+Many different descriptors have been proposed in the literature for a wide range of application in Computer Vision such as object recognition and 3D reconstruction. More recently, due to fast key-point detectors, feature descriptor can be used in online tracking frameworks. However, while much effort has been spent on evaluating their performance in terms of distinctiveness and robustness to image transformations, very little has been done in the contest of tracking. Our evaluation is performed in terms of distinctiveness, tracking precision and tracking speed. Our results show that binary descriptors like ORB or BRISK have comparable results to SIFT or AKAZE due to a higher number of key-points.    
 
 \end{abstract}
 
@@ -141,13 +141,13 @@ The main reason why AKAZE could outperform SIFT relies in the use of non linear 
 
 %\missingfigure[figwidth=0.98\linewidth]{Intro figure showing tracker benchmark}
 
-These extremely fast local descriptors not only improve the performance of vision tasks such as object retrieval and 3D reconstruction but they can be used in real-time tracking system. Yet, to the best of our knowledge, very little work has been done in evaluating key-points descriptor for the specific purpose of tracking. This work aims to target that issue by providing a fair and comprehensive evaluation of the most well known descriptors. We use the overlap measure to evaluate the tracking precision of the features and we calculate the it by integrating each local descriptor in a key-point based tracker \cite{pieropan15}. Since there is no dataset designed to test local descriptors for tracking purposes, the videos used in the evaluation are gathered from well known tracking datasets described in \cite{wu2013,nebehay2014,hare2011}. We want to provide a practical guideline to binary descriptors for the specific task of tracking since it is not clear yet that a descriptor designed for image recognition is well suited for tracking.
+These extremely fast local descriptors not only improve the performance of vision tasks such as object retrieval and 3D reconstruction but they can be used in real-time tracking system. Yet, to the best of our knowledge, very little work has been done in evaluating key-points descriptor for the specific purpose of tracking. This work aims to target that issue by providing a fair and comprehensive evaluation of the most well known descriptors. We use the recall-precision measure to evaluate the matching distinctiveness of the features and we calculate the tracking precision by integrating each local descriptor in a key-point based tracker \cite{pieropan15}. Since there is no dataset designed to test local descriptors for tracking purposes , the videos used in the evaluation are gathered from well known tracking datasets described in \cite{wu2013,nebehay2014,hare2011}. We want to provide a practical guideline to binary descriptors for the specific task of tracking since it is not clear yet that a descriptor designed for image recognition is well suited for tracking.
  
 The contribution of this work is four-fold:\\
 \textbf{Dataset.} We collected 47 sequences from different public available datasets and annotated the ground-truth in a standardized format to ease the evaluation.\\
 \textbf{Cuda Akaze.} Given the growing interest in the AKAZE feature descriptor and the lack of a GPU implementation, we provide our own using CUDA.\\
 \textbf{Evaluation Library.} We integrated the most well known descriptors in a state-of-the-art key-point based 2D tracker and we provide an interface to enable the integration of new feature descriptors.\\
-\textbf{Evaluation.}  There are three criteria the local descriptors are tested upon: distinctiveness, tracking precision and speed. First we measure the distinctiveness by matching the feature descriptors extracted in the first frame of the sequence and by computing the ratio of true positive and false positives. Then we calculate the tracking by integrating each feature descriptor in a key-point based tracker and we calculate the well known overlap accuracy for low, medium and high precision requirements. Last we profile the performance of each descriptor.
+\textbf{Evaluation.}  There are three criteria the local descriptors are tested upon: distinctiveness, tracking precision and speed. First we measure the distinctiveness by matching the feature descriptors extracted in the first frame of the sequence and by computing the recall-precision. Then we calculate the tracking by integrating each feature descriptor in a key-point based tracker and we calculate the well known overlap accuracy for low, medium and high precision requirements. Last we profile the performance of each descriptor.
 
 The dataset, our AKAZE implementation and all the code to perform the benchmark will be publicly available.
 
