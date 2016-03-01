@@ -58,6 +58,7 @@ The dataset used for benchmarking includes video sequences of various resolution
 	\includegraphics[width=0.95\linewidth]{imgs/tracker_fps_std.pdf}
 \vspace{-2.5mm}	
 \caption{Average time spent on tracking the object in a single frame: important factors are the resolution and the number of feature descriptors extracted. The variance of the results is a good indication of how much the number of feature descriptors influences the performance. It can be seen that the implementations have a lower variation due to the high level of parallelism. }
+\vspace{-2mm}
 \label{fig:speed}
 \end{figure}
 
@@ -84,8 +85,8 @@ The two most important factors that influence performance are resolution and num
 Most of the feature descriptors proved to be effective for tracking purposes showing a good precision and performance. This is positive since it makes these suitable for real-time applications. Despite being assessed as somewhat weak in terms of distinctiveness, ORB and BRISK have been proven to be good for real time frameworks. 
 However, the trade-off between the distinctiveness and accuracy is not easy to define.
 AKAZE and SIFT have been proven to be more distinctive as descriptors but only their implementations on the GPU allow real time performances. 
-The most important factors that diversify the results are the characteristics of the video sequences: object transformations, in particular scale, object appearance, light condition and motion blur. AKAZE and SIFT have shown to be more distinctive and effective when the video does not present drastic movements. AKAZE seems to be particularly sensitive to change in scale, on the other hand it has higher performance on low textured objects and people, still in sequences where the tracked object keep a constant distance from the camera.
-Moreover, we noticed that the matching rate of all features drop consistently upon fast movements of the camera as we discussed in \cite{pieropan15}. However, the performance of weak feature descriptors such as BRISK or ORB seems to be less sensitive to this kind of noise. 
+The most important factors that diversify the results are the characteristics of the video sequences: object transformations, in particular scale, object appearance, light condition and motion blur. AKAZE and SIFT have shown to be more distinctive and effective when the video does not present drastic movements. AKAZE seems to be particularly sensitive to change in scale or blurring, on the other hand it has higher performance on low textured objects and people, still in sequences where the tracked object keep a constant distance from the camera as in Fig.~\ref{fig:tracking_comparison}.
+Moreover, we noticed that the matching rate of all features drop consistently upon fast movements of the camera as we discussed in \cite{pieropan15}. However, the performance of weak feature descriptors such as BRISK or ORB seems to be less sensitive to this kind of noise as in Fig.~\ref{fig:tracking_comparison}. 
 
 \begin{figure}[!htb]
 	\vspace{2mm}
@@ -108,20 +109,27 @@ Second, feature descriptors are sensitive to light conditions, see Fig.~\ref{fig
 \begin{figure*}[!htb]
 	\vspace{2mm}
 \centerline{%
-	\subfigure{\includegraphics[width=0.24\linewidth]{imgs/comparison/occ1.png}}
-	\subfigure{\includegraphics[width=0.24\linewidth]{imgs/comparison/occ2.png}}
-	\subfigure{\includegraphics[width=0.24\linewidth]{imgs/comparison/occ3.png}}
-	\subfigure{\includegraphics[width=0.24\linewidth]{imgs/comparison/occ4.png}}}
+	\subfigure[Crossing: constant distance from camera, target often occluded.]{\includegraphics[width=0.24\linewidth]{imgs/comparison/occ1.png}
+			   \includegraphics[width=0.24\linewidth]{imgs/comparison/occ2.png}
+			   \includegraphics[width=0.24\linewidth]{imgs/comparison/occ2.png}
+			   \includegraphics[width=0.24\linewidth]{imgs/comparison/occ2.png}}
+			   \label{fig:crossing}}
 	\vspace{-2mm}
 \centerline{%
-	\subfigure{\includegraphics[width=0.24\linewidth]{imgs/comparison/car1.png}}
-	\subfigure{\includegraphics[width=0.24\linewidth]{imgs/comparison/car2.png}}
-	\subfigure{\includegraphics[width=0.24\linewidth]{imgs/comparison/car3.png}}
-	\subfigure{\includegraphics[width=0.24\linewidth]{imgs/comparison/car4.png}}}
-\caption{A few example images from the videos used in the benchmark. The sequences include both indoor and outdoor scenes, subjected to changing lightning conditions, 
-occlusion, and significant changes in object appearance.}
+	\subfigure[Jumping: high motion blur.]{\includegraphics[width=0.24\linewidth,trim={0, 0 0 2cm},clip]{imgs/comparison/blur1.png}
+	           \includegraphics[width=0.24\linewidth,trim={0, 0 0 2cm},clip]{imgs/comparison/blur2.png}
+			   \includegraphics[width=0.24\linewidth,trim={0, 0 0 2cm},clip]{imgs/comparison/blur3.png}
+	           \includegraphics[width=0.24\linewidth,trim={0, 0 0 2cm},clip]{imgs/comparison/blur4.png}}
+	           \label{fig:jumping}}
+	           \centerline{%
+\subfigure[Skating: motion blur, scale and light change.]{\includegraphics[width=0.24\linewidth]{imgs/comparison/skating1.png}
+	           \includegraphics[width=0.24\linewidth]{imgs/comparison/skating2.png}
+	           \includegraphics[width=0.24\linewidth]{imgs/comparison/skating3.png}
+	           \includegraphics[width=0.24\linewidth]{imgs/comparison/skating4.png}}
+	           \label{fig:skating}}
+\caption{A few example where the precision of the descriptors differs consistently. In sequence~(a) AKAZE the camera keeps the a constant distance from the target who is often occluded by other people. SIFT and AKAZE performs better in this scenario. In sequence~(b) the target is often blurred due to high motion, ORB and BRISK have the best precision in such as scenario. Sequence~(c) is one of the most challenging, it contains scale and light changes and motion blur. BRISK and ORB have higher accuracy however on light changes all the descriptors lose the target.}
 \vspace{-3mm}
-\label{fig:tracking_results}
+\label{fig:tracking_comparison}
 \end{figure*}
 
 
