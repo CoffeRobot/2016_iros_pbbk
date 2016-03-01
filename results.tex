@@ -1,6 +1,6 @@
 \section{Results}
 
-In this section, we summarise the results of our assessment.
+In this section, we summarise the results of our assessment. The descriptors considered in the evaluation are: BRISK, ORB, SURF and SIFT included in OpenCV library. The implementation of AKAZE made available by its original author \cite{alcantarilla13} and the implementation of SIFT using CUDA presented in \cite{bjorkmann14}.
 
 \subsection{Distinctiveness}
 
@@ -36,7 +36,7 @@ It is interesting to notice that BRISK, ORB and SIFT extract a higher number of 
 
 \subsection{Tracking accuracy}
 
-As explained in the previous section, we evaluated the performance of the feature descriptors by running our tracker and calculating the overlap measure for low, medium and high accuracy requirements. 
+As explained in the previous section, we evaluated the accuracy of the feature descriptors by running our tracker and calculating the overlap measure for low, medium and high accuracy requirements. 
 \begin{figure}[!h]
 	\vspace{2mm}
 \centerline{%
@@ -61,13 +61,13 @@ The dataset used for benchmarking includes video sequences of various resolution
 \label{fig:speed}
 \end{figure}
 
-The two most important factors that influence performance are resolution and number of key points extracted. The former influences particularly the detection step when the scale space of descriptors is computed and key-points are detected. The latter influences more the compute step when feature descriptors are calculated and the matching step. The average performance of each separate step can be seen in Fig.~\ref{fig:speed_b}. One interesting aspect to notice is the variance of the performance in Fig.~\ref{fig:speed}: BRISK, ORB and SIFT have the higher variance while CUDA SIFT and CUDA AKAZE have lower variance. This is also a good indicator of the level of parallelism of the implementation of the descriptor. It is interesting to notice that the computation of the non linear scale space required by AKAZE is not perfectly suited for a GPU architecture since it requires many sequential steps, as a result the key-detector is slower that SIFT. However since the descriptor its binary, its computation and matching compensate in terms of performance. It is also important to remember that CPU implementations do not exploit the same number of cores, therefore we think it is not fare to compare them qualitatively.
+The two most important factors that influence performance are resolution and number of key points extracted. The former influences particularly the detection step when the scale space of descriptors is computed and key-points are detected. The latter influences more the extraction step when feature descriptors are calculated and the matching step. The average performance of each separate step can be seen in Fig.~\ref{fig:speed_b}. One interesting aspect to notice is the variance of the performance in Fig.~\ref{fig:speed}: BRISK, ORB and SIFT have the higher variance while CUDA SIFT and CUDA AKAZE have lower variance. This is also a good indicator of the level of parallelism of the implementation of the descriptor. It is interesting to notice that the computation of the non linear scale space required by AKAZE is not perfectly suited for a GPU architecture since it requires many sequential steps, as a result the key-detector is slower that SIFT. However since the descriptor is binary, its extraction and matching compensate in terms of performance. It is also important to remember that CPU implementations do not exploit the same number of cores, complicating a fair comparison between methods.
 
 \begin{figure}[!htb]
 	%\vspace{-2mm}
 	\includegraphics[width=0.95\linewidth]{imgs/performances.pdf}
 \vspace{-2.5mm}	
-\caption{Performance of the compute, detect and match steps of each feature descriptor.}
+\caption{Performance of the detect, extract and match steps of each feature descriptor.}
 \label{fig:speed_b}
 \end{figure}
 
@@ -84,7 +84,7 @@ The two most important factors that influence performance are resolution and num
 Most of the feature descriptors proved to be effective for tracking purposes showing a good precision and performance. This is positive since it makes these suitable for real-time applications. Despite being assessed as somewhat weak in terms of distinctiveness, ORB and BRISK have been proven to be good for real time frameworks. 
 However, the trade-off between the distinctiveness and accuracy is not easy to define.
 AKAZE and SIFT have been proven to be more distinctive as descriptors but only their implementations on the GPU allow real time performances. 
-The most important factors that diversify the results are the characteristics of the video sequences: object transformations, in particular scale, object appearance, light condition and motion blur. AKAZE and SIFT have proven to be more distinctive and effective when the video does not present drastic movements. AKAZE seems to be particularly sensitive to change in scale, on the other hand it has higher performance on low textured objects and people, still in sequences where the tracked object keep a constant distance from the camera.
+The most important factors that diversify the results are the characteristics of the video sequences: object transformations, in particular scale, object appearance, light condition and motion blur. AKAZE and SIFT have shown to be more distinctive and effective when the video does not present drastic movements. AKAZE seems to be particularly sensitive to change in scale, on the other hand it has higher performance on low textured objects and people, still in sequences where the tracked object keep a constant distance from the camera.
 Moreover, we noticed that the matching rate of all features drop consistently upon fast movements of the camera as we discussed in \cite{pieropan15}. However, the performance of weak feature descriptors such as BRISK or ORB seems to be less sensitive to this kind of noise. 
 
 \begin{figure}[!htb]
@@ -100,12 +100,29 @@ Moreover, we noticed that the matching rate of all features drop consistently up
 
 
 There are still some issue that need to be addressed in relation to achieving a robust tracking system. First, even if many descriptors are invariant to scale or rotation, we noticed that this does
-not hold for drastic changes like in Fig.~\ref{fig:tra}. One possible solution consists in extracting features from appearances of the object generated through synthetic transformations. It has been shown by Morel \cite{morel2009} that this technique improves the matching performance of SIFT descriptor.  
+not hold for drastic changes like in Fig.~\ref{fig:tra}. One possible solution is to extract features from appearances of the object generated through synthetic transformations. It has been shown by Morel \cite{morel2009} that this technique improves the matching performance of SIFT descriptor.  
 Second, feature descriptors are sensitive to light conditions, see Fig.~\ref{fig:trb}. This is particularly relevant for robotics applications since the interaction of a robotic platform with a target object may occlude the light source. Third, the common matching approach to detect an object or compute the transformation between images \cite{mikolajczyk05} does not work in the presence of multiple targets with similar appearance. This is the case shown in Fig.\ref{fig:trc} where more players have the same outfit.
 
 
 
-
+\begin{figure*}[!htb]
+	\vspace{2mm}
+\centerline{%
+	\subfigure{\includegraphics[width=0.24\linewidth]{imgs/comparison/occ1.png}}
+	\subfigure{\includegraphics[width=0.24\linewidth]{imgs/comparison/occ2.png}}
+	\subfigure{\includegraphics[width=0.24\linewidth]{imgs/comparison/occ3.png}}
+	\subfigure{\includegraphics[width=0.24\linewidth]{imgs/comparison/occ4.png}}}
+	\vspace{-2mm}
+\centerline{%
+	\subfigure{\includegraphics[width=0.24\linewidth]{imgs/comparison/car1.png}}
+	\subfigure{\includegraphics[width=0.24\linewidth]{imgs/comparison/car2.png}}
+	\subfigure{\includegraphics[width=0.24\linewidth]{imgs/comparison/car3.png}}
+	\subfigure{\includegraphics[width=0.24\linewidth]{imgs/comparison/car4.png}}}
+\caption{A few example images from the videos used in the benchmark. The sequences include both indoor and outdoor scenes, subjected to changing lightning conditions, 
+occlusion, and significant changes in object appearance.}
+\vspace{-3mm}
+\label{fig:tracking_results}
+\end{figure*}
 
 
 
