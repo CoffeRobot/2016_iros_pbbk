@@ -1,6 +1,6 @@
 \section{Results}
 
-In this section, we summarise the results of our assessment. The descriptors considered in the evaluation are: BRISK, ORB, SURF and SIFT included in OpenCV library. The implementation of AKAZE made available by its original author \cite{alcantarilla13} and the implementation of SIFT using CUDA presented in \cite{bjorkmann14}.
+In this section, we summarize the results of our assessment. The descriptors considered in the evaluation are: BRISK, ORB, SURF and SIFT included in OpenCV library. The implementation of AKAZE made available by its original author \cite{alcantarilla13} and the implementation of SIFT using CUDA presented in \cite{bjorkmann14}.
 
 \subsection{Distinctiveness}
 
@@ -47,11 +47,11 @@ As explained in the previous section, we evaluated the accuracy of the feature d
 \label{fig:tracking_results}
 \end{figure}
 
-Table~\ref{table:taccuracy} summarizes tracking results on all the video sequences included in the dataset.  Our experiments show that AKAZE, BRISK, ORB and SIFT have comparable results. It is interesting to note that BRISK and ORB are more effective in tracking in video sequences with high motion blur, making the recovery after track loss faster, see Fig.~\ref{fig:tracking_results}. We also noticed that AKAZE, more than SIFT, suffers from changes in scale. On the other hand, SIFT and AKAZE have a higher accuracy when the input signal is clearer.
+Table~\ref{table:taccuracy} summarizes tracking results on all the video sequences included in the dataset.  Our experiments show that AKAZE, BRISK, ORB and SIFT have comparable results. It is interesting to note that BRISK and ORB are more effective in tracking in video sequences with high motion blur, making the recovery after track loss faster (see Fig.~\ref{fig:tracking_results}). We also noticed that AKAZE, more than SIFT, suffers from changes in scale. On the other hand, SIFT and AKAZE have a higher accuracy when the input signal is clearer.
 
 \subsection{Tracking performance}
 
-The dataset used for benchmarking includes video sequences of various resolution. Fig.~\ref{fig:speed} shows the average computational cost of each feature descriptor on the resolutions having the highest number of sequences. 
+The dataset used for benchmarking includes video sequences of various resolutions. Fig.~\ref{fig:speed} shows the average computational cost of each feature descriptor on the resolutions having the highest number of sequences. 
 
 \begin{figure}[!htb]
 	%\vspace{-2mm}
@@ -86,8 +86,8 @@ The two most important factors that influence performance are resolution and num
 Most of the feature descriptors proved to be effective for tracking purposes showing a good precision and performance. This is positive since it makes these suitable for real-time applications. Despite being assessed as somewhat weak in terms of distinctiveness, ORB and BRISK have been proven to be good for real time frameworks. 
 However, the trade-off between the distinctiveness and accuracy is not easy to define.
 AKAZE and SIFT have been proven to be more distinctive as descriptors but only their implementations on the GPU allow real time performances. 
-The most important factors that diversify the results are the characteristics of the video sequences: object transformations, in particular scale, object appearance, light condition and motion blur. AKAZE and SIFT have shown to be more distinctive and effective when the video does not present drastic movements. AKAZE seems to be particularly sensitive to change in scale or blurring, on the other hand it has higher performance on low textured objects and people, in sequences where the target keeps a constant distance from the camera as in Fig.~\ref{fig:tracking_comparison}.
-Moreover, we noticed that the matching rate of all features drop consistently upon fast movements of the camera as we discussed in \cite{pieropan15}. However, the performance of BRISK and ORB feature descriptors seems to be less sensitive to this kind of noise as in Fig.~\ref{fig:tracking_comparison}. 
+The most important factors that diversify the results are the characteristics of the video sequences: object transformations, in particular scale, object appearance, light condition and motion blur. AKAZE and SIFT have shown to be more distinctive and effective when the video does not present drastic movements. AKAZE seems to be particularly sensitive to change in scale or blurring, on the other hand it has higher performance on low textured objects and people, in sequences where the target keeps a constant distance from the camera, which can be seen in Fig.~\ref{fig:tracking_comparison}.
+Moreover, we noticed that the matching rate of all features drop consistently upon fast movements of the camera as we discussed in \cite{pieropan15}. However, the performance of BRISK and ORB feature descriptors seems to be less sensitive to this kind of noise (see Fig.~\ref{fig:tracking_comparison}).
 
 \begin{figure}[!htb]
 	\vspace{2mm}

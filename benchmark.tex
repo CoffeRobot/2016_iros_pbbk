@@ -64,7 +64,7 @@ The average ratio of true positives assesses the ability of a tracker to detect 
 \subsection{Evaluating tracking precision}
 \label{sec:accuracy}
 
-We employ a sparse key-point based tracker to measure the precision of the feature descriptors for tracking. The tracker is initialised using a bounding box in the initial image of a tracking sequence. Inside the bounding box, feature descriptors are extracted and represent the \textit{model} of the tracked object. The algorithm estimates the position of the object, represented as an oriented bounding box, with a combination of sparse optical flow and feature matching as outlined in Algorithm \ref{alg:algorithm}. For the complete details please refer to \cite{pieropan15}.
+We employ a sparse key-point based tracker to measure the precision of the feature descriptors for tracking. The tracker is initialized using a bounding box in the initial image of a tracking sequence. Inside the bounding box, feature descriptors are extracted and represent the \textit{model} of the tracked object. The algorithm estimates the position of the object, represented as an oriented bounding box, with a combination of sparse optical flow and feature matching as outlined in Algorithm \ref{alg:algorithm}. For the complete details please refer to \cite{pieropan15}.
 
 \begin{algorithm}[!htb]
  \KwData{$I_{1},...,I_{n},B_{1}$}
@@ -113,7 +113,7 @@ The overall accuracy of the tracker is then computed for each precision requirem
 
 \subsection{Parameter setting}
 
-All the employed descriptors require many parameters to be initialised and run properly. In order to achieve the most fair comparison between them, we decided to keep the values suggested in the original publication of the feature descriptor or the implementation if such was available. However, there are some parameters that most of the feature descriptors share and that we set to the same value. Thus, the maximum number of features extracted is set to 2500 and the number of scale space octaves is set to 4.
+All the employed descriptors require many parameters to be initialized and run properly. In order to achieve the most fair comparison between them, we decided to keep the values suggested in the original publication of the feature descriptor or the implementation if such was available. However, there are some parameters that most of the feature descriptors share and that we set to the same value. Thus, the maximum number of features extracted is set to 2500 and the number of scale space octaves is set to 4.
 
 
 
